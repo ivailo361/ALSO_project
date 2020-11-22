@@ -8,14 +8,3 @@ const calc = (sum) => {
 }
 
 console.log(calc(sum(1, 2, 3, 4, 6, 7)))
-
-
-const myData = {
-    name: 'ivo',
-    age: 23,
-}
-console.log(sum(1, 2, 3, 4, 6, 7))
-
-
-
-
