@@ -1,7 +1,16 @@
 function sum() {
-    // console.log([...arguments])
     let args = [...arguments]
     return args.reduce((a, b) => a + b)
 }
 
-console.log(sum(1, 2, 3, 4, 6, 7))
+const calc = (sum) => {
+    return sum + 'ivo'
+}
+
+console.log(calc(sum(1, 2, 3, 4, 6, 7)))
+
+
+const myData = {
+    name: 'ivo',
+    age: 23,
+}
