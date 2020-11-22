@@ -8,6 +8,3 @@ const calc = (sum) => {
 }
 
 console.log(calc(sum(1, 2, 3, 4, 6, 7)))
-
-
-
