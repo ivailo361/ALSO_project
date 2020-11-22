@@ -16,6 +16,4 @@ const data = {
 }
 
 
-const newParam = ''
-
-const anotherParam = ''
+const forgotThese = ''
