@@ -1,5 +1,5 @@
 function sum() {
-    console.log([...arguments])
+    // console.log([...arguments])
     let args = [...arguments]
     return args.reduce((a, b) => a + b)
 }
