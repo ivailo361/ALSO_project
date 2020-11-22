@@ -16,6 +16,6 @@ const myData = {
 }
 console.log(sum(1, 2, 3, 4, 6, 7))
 
-console.log('ivo')
+
 
 
