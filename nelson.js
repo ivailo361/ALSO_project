@@ -17,3 +17,7 @@ const data = {
 
 
 const newParam = ''
+
+function check() {
+    
+}
