@@ -1,5 +1,8 @@
 import React from 'react'
-import Aside from '../../mainComponents/aside/aside'
+import styled from 'styled-components'
+import { Li, StyledLink } from '../../stylesComponents/li'
+import type from '../../storage/database'
+import ListItems from '../../mainComponents/listItems/listItems'
 
 
 function Configurator(props) {
@@ -7,11 +10,30 @@ function Configurator(props) {
     // const { brand } = useParams()
 
     return (
-        <div>
-            <div>PICK UP YOUR BRAND</div>
-            <Aside type='brand' />
-        </div>
+        <Div>
+            <div>CHOOSE UP YOUR BRAND</div>
+            <Nav >
+                <ListItems conf='true' nav={type('brand')} />
+            </Nav>
+        </Div>
     )
 }
 
 export default Configurator
+
+const Div = styled.div`
+    display: flex;
+    flex-direction: column;
+    width: 98%;
+    border: 2px solid lightgrey; 
+    border-radius: 0.3rem;  
+`
+
+const Nav = styled.nav`
+    align-self: center;
+    margin: auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    width: 400px;
+`

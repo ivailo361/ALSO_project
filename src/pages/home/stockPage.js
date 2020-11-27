@@ -1,13 +1,14 @@
-import React from 'react'
+import React, { Fragment } from 'react'
 import Aside from '../../mainComponents/aside/aside'
+import { Content } from '../../stylesComponents/content'
 
 function StockPage() {
 
     return (
-        <div>
+        <Fragment>
             <Aside type='manufacturer'/>
-            <div>IT is a Home page</div>
-        </div>
+            <Content>IT is a Home page</Content>
+        </Fragment>
     )
 }
 

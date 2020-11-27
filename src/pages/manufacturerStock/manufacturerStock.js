@@ -1,16 +1,19 @@
-import React from 'react'
+import React, { Fragment } from 'react'
 import { useParams } from 'react-router-dom'
 import Aside from '../../mainComponents/aside/aside'
+import { Content } from '../../stylesComponents/content'
 
 function ManufacturerStock() {
     const { manufacturer } = useParams()
 
     return (
-        <div>
-            <div>THIS IS A WAREHOUSE STOCK PER MANUFACTURER PAGE</div>
-            <div>The chosen warehouse is from {manufacturer}</div>
+        <Fragment>
             <Aside type='manufacturer' />
-        </div>
+            <Content>
+                <div>THIS IS A WAREHOUSE STOCK PER MANUFACTURER PAGE</div>
+                <div>The chosen warehouse is from <b>{manufacturer}</b></div>
+            </Content>
+        </Fragment>
 
     )
 

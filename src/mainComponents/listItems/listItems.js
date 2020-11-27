@@ -1,19 +1,19 @@
 import React, { Fragment } from 'react'
-import { Link } from 'react-router-dom'
+import { Li, StyledLink } from '../../stylesComponents/li'
 
 
 
 function ListItems(props) {
-    let { nav } = props
-
+    let { nav, conf } = props
+  
     let links = nav.map((x, i) => {
         return (
-            <li key={i}>
-                <Link to={`${x.url}`}>{x.name}</Link>
-            </li>
-        ) 
+            <Li key={i}>
+                <StyledLink to={`${x.url}`} conf={conf} theme={x.name} >{x.name}</StyledLink>
+            </Li>
+        )
     })
-    
+
     return (
         <Fragment>
             {links}
