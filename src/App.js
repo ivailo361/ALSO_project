@@ -1,11 +1,11 @@
 import './App.css';
-import { Route, Switch } from 'react-router-dom'
+import { Route, Switch, Redirect } from 'react-router-dom'
 import styled from 'styled-components'
 import StockPage from './pages/home/stockPage'
 import Header from './mainComponents/header/header'
 import Configurator from './pages/configurator/configurator'
 import Brands from './pages/brands/brandConfig'
-import ManufacturerPage from './pages/manufacturerStock/manufacturerStock'
+
 
 function App() {
   return (
@@ -13,8 +13,7 @@ function App() {
       <Header />
       <Container>
         <Switch>
-          <Route exact path="/" component={StockPage} />
-          <Route path="/stock/:manufacturer" component={ManufacturerPage} />
+          <Route exact path="/" render={() => <Redirect to='/stock'/>} />
           <Route path="/stock" component={StockPage} />
           <Route path="/configurator/:brand" component={Brands} />
           <Route path="/configurator/" component={Configurator} />

@@ -4,22 +4,22 @@ import ListItems from '../listItems/listItems'
 import styled from 'styled-components';
 
 const headerList = (loggedIn) => {
-    const guest = [
-        { name: 'Stock', url: '/stock' },
-        { name: 'Configurator', url: '/configurator' },
-        { name: 'Register', url: '/register'},
-        { name: 'Login', url: '/login'},
+    const guest = [ 'Stock', 'Configurator', 'Register', 'Login',
+        // { name: 'Stock', url: '/stock' },
+        // { name: 'Configurator', url: '/configurator' },
+        // { name: 'Register', url: '/register'},
+        // { name: 'Login', url: '/login'},
       ]
 
-      const user = [
-        { name: 'Stock', url: '/stock' },
-        { name: 'Configurator', url: '/configurator' },
-        { name: 'Add category', url: '/addCategory'},
-        { name: 'Edit material', url: '/editMaterial'},
-        { name: 'Logout', url: '/logout'}
+      const user = [ 'Stock', 'Configurator', 'Add category', 'Edit material', 'Login',
+        // { name: 'Stock', url: '/stock' },
+        // { name: 'Configurator', url: '/configurator' },
+        // { name: 'Add category', url: '/addCategory'},
+        // { name: 'Edit material', url: '/editMaterial'},
+        // { name: 'Logout', url: '/logout'}
     ]
 
-    return loggedIn ? user : guest
+    return loggedIn ? user : guest 
 }
 
 function Header() {

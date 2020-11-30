@@ -2,41 +2,18 @@ import React from 'react'
 import ListItems from '../listItems/listItems'
 import styled from 'styled-components';
 import type from '../../storage/database'
-
-// const type = (type) => {
-//     const links = {
-//         manufacturer: [
-//             { name: 'Fujitsu', url: '/stock/fujitsu' },
-//             { name: 'HPE', url: '/stock/hpe' },
-//             { name: 'DELL', url: '/stock/dell' },
-//             { name: 'Lenovo', url: '/stock/lenovo' },
-//         ],
-//         brand: [
-//             { name: 'Fujitsu', url: '/configurator/fujitsu' },
-//             { name: 'HPE', url: '/configurator/hpe' },
-//             { name: 'DELL', url: '/configurator/dell' },
-//             { name: 'Lenovo', url: '/configurator/lenovo' },
-//         ],
-
-//         fujitsu: [
-//             { name: 'TX1330', url: '/configurator/fujitsu/tx1330' },
-//             { name: 'RX2530', url: '/configurator/fujitsu/rx2530' },
-//             { name: 'RX2540', url: '/configurator/fujitsu/rx2540' },
-//         ],
-//         hpe: [
-//             { name: 'DL160', url: '/configurator/hpe/dl160' },
-//             { name: 'ML350', url: '/configurator/hpe/ml350' },
-//         ]
-//     }
-//     return links[type]
-// }
+// import { useLocation } from 'react-router-dom'
 
 
 function Aside(props) {
+    console.log('Aside')
+    const manufacturers = type(props.type)
+    const { active } = props
+
     return (
         <AsideComp>
             <Nav >
-                <ListItems nav={type(props.type)} />
+                <ListItems nav={manufacturers} theme={props.theme} />
             </Nav>
         </AsideComp>
     )

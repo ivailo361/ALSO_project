@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
-import { Li, StyledLink } from '../../stylesComponents/li'
+
 import type from '../../storage/database'
 import ListItems from '../../mainComponents/listItems/listItems'
 
@@ -8,12 +8,12 @@ import ListItems from '../../mainComponents/listItems/listItems'
 function Configurator(props) {
     console.log(props)
     // const { brand } = useParams()
-
+    const brands = type('brand')
     return (
         <Div>
             <div>CHOOSE UP YOUR BRAND</div>
             <Nav >
-                <ListItems conf='true' nav={type('brand')} />
+                <ListItems conf='true' nav={brands} />
             </Nav>
         </Div>
     )
