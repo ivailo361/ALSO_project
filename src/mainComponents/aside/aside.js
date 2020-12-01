@@ -6,9 +6,7 @@ import type from '../../storage/database'
 
 
 function Aside(props) {
-    console.log('Aside')
-    const manufacturers = type(props.type)
-    const { active } = props
+     const manufacturers = type(props.type)
 
     return (
         <AsideComp>

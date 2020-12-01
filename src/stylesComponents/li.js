@@ -26,6 +26,18 @@ const hoverView = (theme) => {
     return type[theme] ? type[theme] : type['default']
 }
 
+const activeLink = (marked) => {
+    const type = {
+        // default: `color: black; background-color: #cccccc; margin-right: 1rem;`,
+        fujitsu: `color: white; background-color: rgb(226,6,6);`,
+        hpe: `color: white; background-color: rgb(1,169,130);`,
+        dell: `color: white; background-color: rgb(1,126,186);`,
+        lenovo: `color: white; background-color: rgb(53,43,114);`,
+        all: `color: black; background-color: #cccccc; `
+    }
+    return type[marked] ? type[marked] : false
+}
+
 const configuratorView = (conf) => {
     if (conf === 'true') {
         return (
@@ -63,6 +75,8 @@ const StyledLink = styled(Link)`
     height: auto;
     ${({ theme }) => standardView(theme.toLowerCase())}
     ${({ conf }) => configuratorView(conf)}
+    ${({ marked }) => activeLink(marked.toLowerCase())}
+
     /*({ active }) => hoverView(active)*/
     /* color: black;
     background-color: white;

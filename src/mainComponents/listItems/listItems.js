@@ -6,8 +6,10 @@ import { useRouteMatch } from 'react-router-dom'
 
 
 function ListItems(props) {
-    const [marked, setMarked] = useState(false)
+    const [value, setValue] = useState('')
     const { url } = useRouteMatch()
+    // let model = pathname.match(/[a-zA-Z\d]+$/) || ""
+
     const { nav, conf, theme } = props
 
     const path = url === '/' ? "" : url
@@ -18,9 +20,9 @@ function ListItems(props) {
                 <StyledLink to={`${path}/${x.toLowerCase()}`}
                     conf={conf}
                     theme={theme || x}
-                    marked={`${marked}`}
+                    marked={value === i ? (theme || x) : ''}
                     onClick={(e) => {
-                        setMarked(!marked)
+                        setValue(i)
                         // e.target.setAttribute('marked', true)
                     }}>
                     {x}

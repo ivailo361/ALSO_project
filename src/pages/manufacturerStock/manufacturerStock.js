@@ -5,7 +5,7 @@ import { useParams } from 'react-router-dom'
 
 function ManufacturerStock(props) {
     const { manufacturer } = useParams()
-    console.log(manufacturer)
+
     return (
         <Fragment>
             <div>THIS IS A WAREHOUSE STOCK PER MANUFACTURER PAGE</div>
