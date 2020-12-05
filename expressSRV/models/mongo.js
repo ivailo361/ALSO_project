@@ -32,7 +32,7 @@ class MongoDB {
                     return obj
                 }
             }, {})
-        const cursor = db.collection(collection).find(selector).sort( { _id : -1 } );
+        const cursor = db.collection(collection).find(selector).sort( { _id : 1 } );
         const results = await cursor.toArray();
         if (results.length >= 1) {
             return results;

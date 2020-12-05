@@ -9,12 +9,12 @@ const createHeader = (method, body) => {
             // .map(key => encodeURIComponent(key) + '=' + encodeURIComponent(data[key]))
             .join('&');
     }
-    const { token }  = JSON.parse(sessionStorage.getItem('user')) || ''
+    const { token } = JSON.parse(sessionStorage.getItem('user')) || ''
     const header = {
         method: method,
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded',
-            'auth': `${token || ''}` 
+            'auth': `${token || ''}`
         },
         body: encodeFormData(body)
     }
@@ -32,7 +32,7 @@ function fetcher(url, header) {
             // }
             return res.json()
         })
-        // .catch(console.log)
+    // .catch(console.log)
 }
 
 function getData(endpoint) {
@@ -51,10 +51,11 @@ function putData(endpoint, body) {
     return fetcher(BASE_URL + endpoint, header)
 }
 
-const checkForErrors = (res) => {
+const checkForErrors = async (res) => {
     if (!res.ok) {
         // let message = msg(res.status)
-        throw new Error(res)
+        let msg = await res.json()
+        throw new Error(msg)
     }
     return res;
 }

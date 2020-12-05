@@ -10,10 +10,12 @@ const db = new MongoDB();
 module.exports = {
     get: async (req, res, next) => {
         console.log('I am here')
-        let getData = await db.getData('servers')
-
+        let getData = await Promise.all([db.getData('servers'), db.getData('types')])
+        console.log(getData)
+        if (getData.length === 0) {
+            res.status(404).json('Sorry, we cannot find that!')
+        }
         res.status(200).json(getData)
-
     },
     post: {
         register: async (req, res, next) => {

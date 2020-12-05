@@ -4,13 +4,14 @@ import { Route, Switch } from 'react-router-dom'
 import Aside from '../../mainComponents/aside/aside'
 import { Content } from '../../stylesComponents/content'
 import ServerModel from '../../mainComponents/serverModel/serverModel'
+import db from '../../storage/database' 
 
 function Brands(props) {
     const { brand } = useParams()
     let { path } = useRouteMatch();
     return (
         <Fragment>
-            <Aside type={brand} theme={brand} />
+            <Aside list={db.getModels(brand)} theme={brand} />
             <Content>
                 <Switch>
                     <Route exact path={path} component={ServerModel} />
