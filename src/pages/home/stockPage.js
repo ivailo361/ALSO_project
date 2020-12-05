@@ -1,9 +1,10 @@
-import React, { Fragment } from 'react'
+import React, { Fragment, useEffect } from 'react'
 import { useRouteMatch } from 'react-router-dom'
 import { Route, Switch } from 'react-router-dom'
 import Aside from '../../mainComponents/aside/aside'
 import { Content } from '../../stylesComponents/content'
 import ManufacturerPage from '../../pages/manufacturerStock/manufacturerStock'
+import { getData } from '../../models/fetcher' 
 
 // import { useLocation } from 'react-router-dom'
 
@@ -11,6 +12,15 @@ import ManufacturerPage from '../../pages/manufacturerStock/manufacturerStock'
 function StockPage() {
 
     let { path } = useRouteMatch();
+
+    // useEffect(() => {
+    //     getData('/api/stock').then((res) => {
+    //         console.log(res)
+    //         // sessionStorage.setItem('postList', JSON.stringify(res));
+    //     }).catch(e => console.error(e))
+    // }, [])
+
+
 
     return (
         <Fragment>
