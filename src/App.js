@@ -33,6 +33,7 @@ const Main = styled.div`
   flex-direction: column;
 `
 const Container = styled.div`
+  position: relative;
   display: flex;
   justify-content: space-evenly;
   margin-top: 0.5rem;

@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import ListItems from '../listItems/listItems'
+import ListItems from '../listItems/navigation'
 import styled from 'styled-components';
 
 const headerList = (loggedIn) => {

@@ -1,18 +1,21 @@
 import React from 'react'
-import ListItems from '../listItems/listItems'
+import ListItems from '../listItems/navigation'
 import styled from 'styled-components';
-import type from '../../storage/database'
+// import type from '../../storage/database'
 // import { useLocation } from 'react-router-dom'
 
 
 function Aside(props) {
-     const manufacturers = type(props.type)
+    const manufacturers = props.list 
 
     return (
         <AsideComp>
-            <Nav >
-                <ListItems nav={manufacturers} theme={props.theme} />
-            </Nav>
+            {manufacturers.length !== 0 
+                ? (<Nav >
+                    <ListItems nav={manufacturers} theme={props.theme} />
+                </Nav>)
+                : null
+            } 
         </AsideComp>
     )
 }

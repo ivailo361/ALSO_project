@@ -17,7 +17,7 @@ function ListItems(props) {
     const links = nav.map((x, i) => {
         return (
             <Li key={i}>
-                <StyledLink to={`${path}/${x.toLowerCase()}`}
+                <StyledLink to={`${path}/${x}`}
                     conf={conf}
                     theme={theme || x}
                     marked={value === i ? (theme || x) : ''}

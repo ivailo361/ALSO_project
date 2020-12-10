@@ -1,14 +1,15 @@
 import React from 'react'
 import styled from 'styled-components'
 
-import type from '../../storage/database'
-import ListItems from '../../mainComponents/listItems/listItems'
+// import type from '../../storage/database'
+import db from '../../storage/database'
+import ListItems from '../../mainComponents/listItems/navigation'
 
 
 function Configurator(props) {
-    console.log(props)
-    // const { brand } = useParams()
-    const brands = type('brand')
+
+    const brands = db.getManufacturerConfigList()
+ 
     return (
         <Div>
             <div>CHOOSE UP YOUR BRAND</div>
