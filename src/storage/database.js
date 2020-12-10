@@ -1,34 +1,43 @@
 function setManufacturerList(list) {
-    let manList = {}
-    list.forEach(x => {
-        if (!manList[x.name])
-        manList[x.name] = x.models
-    });
-    links.manufacturer = manList
-    return manList
+    // let manList = {}
+    // list.forEach(x => {
+    //     if (!manList[x.name])
+    //         manList[x.name] = x.models
+    // });
+    // links.manufacturer = manList
+    // return manList
+    links.manufacturer = list
+
 }
 
 function getManufacturerList() {
-    return [...Object.keys(links.manufacturer), 'ALL']
+    let names = links.manufacturer.map(x => x.name)
+    return [...names, 'ALL']
 }
 
 function getManufacturerConfigList() {
-    return Object.keys(links.manufacturer)
+    return links.manufacturer.map(x => x.name)
+}
+
+function getManufacturerFullData(manufacturer) {
+    let producer = links.manufacturer.find(x => x.name === manufacturer)
+
+    return producer
 }
 
 function getModels(brand) {
     // let upperCaseBrand = brand.split('')
     // upperCaseBrand[0] = upperCaseBrand[0].toUpperCase()
     // console.log(upperCaseBrand.join(''))
-    let models = links.manufacturer[brand].concat('ALL')
-
+    let producer = links.manufacturer.find(x => x.name === brand)
+    let models = producer.models.concat('ALL')
     return models
 }
 
 function setTypesComponents(list) {
-    let types = list.map(x => x.type)
-    links.types = types
-    return types
+    // let types = list.map(x => x.type)
+    links.types = list
+    return list
 }
 
 function getTypesComponents() {
@@ -36,9 +45,78 @@ function getTypesComponents() {
 }
 
 let links = {
-    manufacturer: {},
+    manufacturer: [],
+    // manufacturer: {},
     types: [],
 }
+
+
+let data = [
+    {
+        _id: 'oir94939i3t93t8',
+        sapNum: '3904958',
+        manNum: 's43567-2335-6667',
+        description: "lorem ipsum aves mitos non the frande",
+        manufacturer: '80001310',
+        type: 'Memory',
+        compatibleSrv: ['RX1330', 'RX2520', 'RX2530', 'RX2540'],
+        qty: '3',
+        price: '109'
+    },
+    {
+        _id: 'oir94939i3t95t8',
+        sapNum: '3904958',
+        manNum: 's43567-2335-6667',
+        description: "lorem ipsum aves mitos non the frande",
+        manufacturer: '80001310',
+        type: 'Memory',
+        compatibleSrv: ['RX1330', 'RX2520', 'RX2530', 'RX2540'],
+        qty: '3',
+        price: '109'
+    },
+    {
+        _id: 'oir94939i3t99t8',
+        sapNum: '3904958',
+        manNum: 's43567-2335-6667',
+        description: "lorem ipsum aves mitos non the frande",
+        manufacturer: '80033864',
+        type: 'Memory',
+        compatibleSrv: ['RX1330', 'RX2520', 'RX2530', 'RX2540'],
+        qty: '3',
+        price: '109'
+    },
+    {
+        _id: 'oir94939i2t93t8',
+        sapNum: '3904958',
+        manNum: 's43567-2335-6667',
+        description: "lorem ipsum aves mitos non the frande",
+        manufacturer: '80001310',
+        type: 'Server',
+        compatibleSrv: ['RX1330', 'RX2520', 'RX2530', 'RX2540'],
+        qty: '3',
+        price: '109'
+    },
+    {
+        _id: 'oir94939i3tpot8',
+        sapNum: '3904958',
+        manNum: 's43567-2335-6667',
+        description: "lorem ipsum aves mitos non the frande",
+        manufacturer: '80033864',
+        type: 'Server',
+        compatibleSrv: ['RX1330', 'RX2520', 'RX2530', 'RX2540'],
+        qty: '3',
+        price: '109'
+    },
+    {
+        _id: 'dfg456ghtg',
+        sapNum: '7874958',
+        manNum: 's43567-2335-6667',
+        description: "lghfghfgggh fghd hd fghfgh fgh f",
+        manufacturer: '80033864',
+        qty: '3',
+        price: '109'
+    },
+]
 
 // const type = (type) => {
 //     const links = {
@@ -81,7 +159,9 @@ const db = {
     getManufacturerConfigList,
     getModels,
     setTypesComponents,
-    getTypesComponents
+    getTypesComponents,
+    getManufacturerFullData,
+    data,
 }
 
 export default db
