@@ -50,72 +50,79 @@ let links = {
     types: [],
 }
 
+function setComponentsData(mongoData) {
+    data = mongoData
+}
+
+function getComponentsData() {
+    return data
+}
 
 let data = [
-    {
-        _id: 'oir94939i3t93t8',
-        sapNum: '3904958',
-        manNum: 's43567-2335-6667',
-        description: "lorem ipsum aves mitos non the frande",
-        manufacturer: '80001310',
-        type: 'Memory',
-        compatibleSrv: ['RX1330', 'RX2520', 'RX2530', 'RX2540'],
-        qty: '3',
-        price: '109'
-    },
-    {
-        _id: 'oir94939i3t95t8',
-        sapNum: '3904958',
-        manNum: 's43567-2335-6667',
-        description: "lorem ipsum aves mitos non the frande",
-        manufacturer: '80001310',
-        type: 'Memory',
-        compatibleSrv: ['RX1330', 'RX2520', 'RX2530', 'RX2540'],
-        qty: '3',
-        price: '109'
-    },
-    {
-        _id: 'oir94939i3t99t8',
-        sapNum: '3904958',
-        manNum: 's43567-2335-6667',
-        description: "lorem ipsum aves mitos non the frande",
-        manufacturer: '80033864',
-        type: 'Memory',
-        compatibleSrv: ['RX1330', 'RX2520', 'RX2530', 'RX2540'],
-        qty: '3',
-        price: '109'
-    },
-    {
-        _id: 'oir94939i2t93t8',
-        sapNum: '3904958',
-        manNum: 's43567-2335-6667',
-        description: "lorem ipsum aves mitos non the frande",
-        manufacturer: '80001310',
-        type: 'Server',
-        compatibleSrv: ['RX1330', 'RX2520', 'RX2530', 'RX2540'],
-        qty: '3',
-        price: '109'
-    },
-    {
-        _id: 'oir94939i3tpot8',
-        sapNum: '3904958',
-        manNum: 's43567-2335-6667',
-        description: "lorem ipsum aves mitos non the frande",
-        manufacturer: '80033864',
-        type: 'Server',
-        compatibleSrv: ['RX1330', 'RX2520', 'RX2530', 'RX2540'],
-        qty: '3',
-        price: '109'
-    },
-    {
-        _id: 'dfg456ghtg',
-        sapNum: '7874958',
-        manNum: 's43567-2335-6667',
-        description: "lghfghfgggh fghd hd fghfgh fgh f",
-        manufacturer: '80033864',
-        qty: '3',
-        price: '109'
-    },
+    // {
+    //     _id: 'oir94939i3t93t8',
+    //     sapNum: '3904958',
+    //     manNum: 's43567-2335-6667',
+    //     description: "lorem ipsum aves mitos non the frande",
+    //     manufacturer: '80001310',
+    //     type: 'Memory',
+    //     compatibleSrv: ['RX1330', 'RX2520', 'RX2530', 'RX2540'],
+    //     qty: '3',
+    //     price: '109'
+    // },
+    // {
+    //     _id: 'oir94939i3t95t8',
+    //     sapNum: '3904958',
+    //     manNum: 's43567-2335-6667',
+    //     description: "lorem ipsum aves mitos non the frande",
+    //     manufacturer: '80001310',
+    //     type: 'Memory',
+    //     compatibleSrv: ['RX1330', 'RX2520', 'RX2530', 'RX2540'],
+    //     qty: '3',
+    //     price: '109'
+    // },
+    // {
+    //     _id: 'oir94939i3t99t8',
+    //     sapNum: '3904958',
+    //     manNum: 's43567-2335-6667',
+    //     description: "lorem ipsum aves mitos non the frande",
+    //     manufacturer: '80033864',
+    //     type: 'Memory',
+    //     compatibleSrv: ['RX1330', 'RX2520', 'RX2530', 'RX2540'],
+    //     qty: '3',
+    //     price: '109'
+    // },
+    // {
+    //     _id: 'oir94939i2t93t8',
+    //     sapNum: '3904958',
+    //     manNum: 's43567-2335-6667',
+    //     description: "lorem ipsum aves mitos non the frande",
+    //     manufacturer: '80001310',
+    //     type: 'Server',
+    //     compatibleSrv: ['RX1330', 'RX2520', 'RX2530', 'RX2540'],
+    //     qty: '3',
+    //     price: '109'
+    // },
+    // {
+    //     _id: 'oir94939i3tpot8',
+    //     sapNum: '3904958',
+    //     manNum: 's43567-2335-6667',
+    //     description: "lorem ipsum aves mitos non the frande",
+    //     manufacturer: '80033864',
+    //     type: 'Server',
+    //     compatibleSrv: ['RX1330', 'RX2520', 'RX2530', 'RX2540'],
+    //     qty: '3',
+    //     price: '109'
+    // },
+    // {
+    //     _id: 'dfg456ghtg',
+    //     sapNum: '7874958',
+    //     manNum: 's43567-2335-6667',
+    //     description: "lghfghfgggh fghd hd fghfgh fgh f",
+    //     manufacturer: '80033864',
+    //     qty: '3',
+    //     price: '109'
+    // },
 ]
 
 // const type = (type) => {
@@ -161,7 +168,8 @@ const db = {
     setTypesComponents,
     getTypesComponents,
     getManufacturerFullData,
-    data,
+    setComponentsData,
+    getComponentsData,
 }
 
 export default db

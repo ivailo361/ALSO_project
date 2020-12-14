@@ -16,7 +16,8 @@ function StockPage() {
 
     useEffect(() => {
         if (db.getManufacturerList().length <= 1 ) {
-            getData('/api/stock').then((res) => {
+            getData('/api/stock')
+            .then((res) => {
                 console.log(res)
                 db.setManufacturerList(res[0])
                 db.setTypesComponents(res[1])

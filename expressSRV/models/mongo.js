@@ -32,13 +32,52 @@ class MongoDB {
                     return obj
                 }
             }, {})
-        const cursor = db.collection(collection).find(selector).sort( { _id : 1 } );
+        const cursor = db.collection(collection).find(selector).sort({ _id: 1 });
         const results = await cursor.toArray();
         if (results.length >= 1) {
             return results;
         } else {
             throw new Error('Data with such parameters was not found!')
         }
+    }
+
+    async insertDbFile(collectionName, record) {
+        const db = await connectDB();
+        const updateInfo = record.Sheet1
+
+        // updateInfo.forEach(async (x) => {
+        //     const query = { sapNum: x.sapNum };
+        //     const update = x;
+        //     const options = { upsert: true };
+        //     let result = await db.collection(collectionName).updateOne(query, { $set: update }, options)
+        //     console.log(result.modifiedCount)
+        // })
+
+        for await (let commit of updateCommits(updateInfo)) {
+
+            console.log(commit.modifiedCount)
+        }
+
+        async function* updateCommits(data) {
+            for (let i = 0; i < data.length; i++) {
+                const query = { sapNum: data[i].sapNum };
+                const update = data[i];
+                const options = {upsert: true, w: "majority", j: true, wtimeout: 60 };
+
+                let res = await db.collection(collectionName).updateOne(query, { $set: update }, options)
+          
+                // if (res.modifiedCount === 1) {
+                //     throw new Error('The data was not imported please try again later')
+                // }
+                
+                // await new Promise(resolve => setTimeout(resolve, 1000));
+                
+                yield res
+            } 
+        }
+        console.log('res')
+        return 'ok'
+
     }
 
     // async getUser(collectionName, param) {
@@ -166,7 +205,7 @@ class MongoDB {
             return result
         }
         else {
-            return Promise.reject('the user was not updated probably because of the wrong input data' )
+            return Promise.reject('the user was not updated probably because of the wrong input data')
         }
     }
 
