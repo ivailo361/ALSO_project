@@ -1,25 +1,43 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import db from '../../storage/database'
 import TypeList from './typeList'
+import { getData } from '../../models/fetcher'
+import { Block } from '../../stylesComponents/block'
+import styled from 'styled-components'
 
 function TypeComponent(props) {
+    const [error, setError] = useState(null)
+    const [data, setData] = useState(db.getComponentsData())
 
     const { types } = props
     const { manufacturer } = props
-    console.log(manufacturer)
+    console.log(db.getComponentsData())
 
-    let data = db.data.filter(x => {
+    useEffect(() => {
+        if (data.length === 0) {
+            getData('/api/edit')
+                .then((res) => {
+                    console.log(res)
+                    db.setComponentsData(res)
+                    setData(res)
+                })
+                .catch(e => setError(e.message))
+        } 
+    }, [data.length])
+
+
+    let dataDB = data.filter(x => {
         if (manufacturer === 'ALL') {
             return x
         } else {
-            return x.manufacturer === manufacturer || x.manufacturer === undefined
+            return x.manufacturer.toString() === manufacturer || x.manufacturer.toString() === undefined
         }
     })
 
     const list = types.map(x => {
-        const matchComp = data.filter(y => {
+        const matchComp = dataDB.filter(y => {
             // console.log(y.manufacturer, manufacturer, y.type, x.type)
-            if ( y.type === x.type) {
+            if (y.type === x.type) {
                 return y
             } else if (x.type === 'undefined' && y.type === undefined) {
                 return y
@@ -29,9 +47,9 @@ function TypeComponent(props) {
 
 
         return (
-            <div key={x._id}>
+            <Block key={x._id}>
                 <TypeList type={x.type} comp={matchComp} />
-            </div>
+            </Block>
         )
     })
 

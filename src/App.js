@@ -5,6 +5,7 @@ import StockPage from './pages/home/stockPage'
 import Header from './mainComponents/header/header'
 import Configurator from './pages/configurator/configurator'
 import Brands from './pages/brands/brandConfig'
+import EditPage from './pages/edit/editPage'
 
 
 function App() {
@@ -15,6 +16,8 @@ function App() {
         <Switch>
           <Route exact path="/" render={() => <Redirect to='/stock'/>} />
           <Route path="/stock" component={StockPage} />
+          <Route path="/edit/:id" component={EditPage} />
+          <Route path="/edit" component={EditPage} />
           <Route path="/configurator/:brand" component={Brands} />
           <Route path="/configurator/" component={Configurator} />
           <Route render={() => (<div>ERROR PAGE</div>)} />

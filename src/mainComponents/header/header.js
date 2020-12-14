@@ -4,7 +4,7 @@ import ListItems from '../listItems/navigation'
 import styled from 'styled-components';
 
 const headerList = (loggedIn) => {
-    const guest = [ 'Stock', 'Configurator', 'Register', 'Login',
+    const guest = [ 'Edit', 'Stock', 'Configurator', 'Register', 'Login',
         // { name: 'Stock', url: '/stock' },
         // { name: 'Configurator', url: '/configurator' },
         // { name: 'Register', url: '/register'},

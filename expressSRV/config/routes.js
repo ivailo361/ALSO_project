@@ -1,12 +1,13 @@
-const userRouter = require('../src/stock/router-stock');
+const stockRouter = require('../src/stock/routerStock');
+const editRouter = require('../src/edit/routerEdit');
 // const origamiRouter = require('../src/origami/router-origami');
 // const excelRouter = require('../src/excel/router-excel')
 
 module.exports = (app) => {
 
-    app.use('/api/stock', userRouter);
+    app.use('/api/stock', stockRouter);
 
-    // app.use('/api/origami', origamiRouter);
+    app.use('/api/edit', editRouter);
 
     // app.use('/api/excel', excelRouter)
 

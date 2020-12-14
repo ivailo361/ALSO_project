@@ -51,6 +51,14 @@ function putData(endpoint, body) {
     return fetcher(BASE_URL + endpoint, header)
 }
 
+function importData(endpoint, formData) {
+    const header = {
+        method: "POST",
+        body: formData
+    }
+    return fetcher(BASE_URL + endpoint, header)
+}
+
 const checkForErrors = async (res) => {
     if (!res.ok) {
         // let message = msg(res.status)
@@ -60,4 +68,4 @@ const checkForErrors = async (res) => {
     return res;
 }
 
-export { getData, postData, putData }
+export { getData, postData, putData, importData }
