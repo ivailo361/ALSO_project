@@ -13,12 +13,11 @@ function TypeList(props) {
         return (
             <Div>
                 <Nav key={x._id}>
-                    <Sap>{x.sapNum}</Sap>
-                    <Man>{x.manNum}</Man>
-                    <Desc>{x.description}</Desc>
-                    <Qty><strong>{x.qty}</strong>&nbsp;pcs.</Qty>
-                    <Price>{x.price} eur</Price>
-
+                    <Sap key={ x._id + 1}>{x.sapNum}</Sap>
+                    <Man key={x._id + 2}>{x.manNum}</Man>
+                    <Desc key={x._id + 3}>{x.description}</Desc>
+                    <Qty key={x._id + 4}><strong>{x.qty}</strong>&nbsp;pcs.</Qty>
+                    <Price key={x._id + 5}>{x.price} eur</Price>
                 </Nav>
 
                 <Button onClick={() => history.push(`/edit/${x._id}`)}>Edit</Button>
@@ -69,7 +68,7 @@ const ButtonHeader = styled.button`
     
 `
 
-const Nav = styled.nav`
+const Nav = styled.div`
     /* justify-content: space-between; */
     /* border-bottom: 2px solid lightgrey;  */
     display: flex;
@@ -84,7 +83,7 @@ const Nav = styled.nav`
 
 `
 
-const Li = styled.li`
+const Li = styled.div`
     display: flex;
     box-sizing: border-box;
     flex-grow: 1; 

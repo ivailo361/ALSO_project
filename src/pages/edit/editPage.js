@@ -1,16 +1,27 @@
-import React, { Fragment, useRef, useState } from 'react';
+import React, { Fragment, useEffect, useRef, useState } from 'react';
+import { useParams } from 'react-router-dom'
 import db from '../../storage/database'
 import Aside from '../../mainComponents/aside/aside'
 import { Content } from '../../stylesComponents/content'
 import ErrorMsg from '../../mainComponents/errorMsg/errorMsg'
 import { importData } from '../../models/fetcher'
+import PartDetails from './partDetails'
 
 
 function EditPage() {
-    const links = db.getManufacturerList()
-    const fileInput = useRef(null)
     const [response, setResponse] = useState(null)
     const [error, setError] = useState(null)
+    const [part, setPart] = useState(null)
+    const fileInput = useRef(null)
+    let { id } = useParams();
+    const links = db.getManufacturerList()
+    const data = db.getComponentsData()
+
+    useEffect(() => {
+        let part = data.find(x => x._id === id)
+        setPart(part)
+    }, [])
+
 
     const uploadExcel = (e) => {
         e.preventDefault();
@@ -44,6 +55,7 @@ function EditPage() {
                     <input type="file" name="files" multiple ref={fileInput} />
                     <button theme="standard" type="submit" name="submit">Upload Files</button>
                 </form>
+                <PartDetails part={part} />
             </Content>
         </Fragment>
     )
