@@ -11,16 +11,16 @@ function TypeList(props) {
 
     const listComp = comp.map((x, index) => {
         return (
-            <Div>
-                <Nav key={x._id}>
-                    <Sap key={ x._id + 1}>{x.sapNum}</Sap>
-                    <Man key={x._id + 2}>{x.manNum}</Man>
-                    <Desc key={x._id + 3}>{x.description}</Desc>
-                    <Qty key={x._id + 4}><strong>{x.qty}</strong>&nbsp;pcs.</Qty>
-                    <Price key={x._id + 5}>{x.price} eur</Price>
+            <Div key={x._id}>
+                <Nav>
+                    <Sap>{x.sapNum}</Sap>
+                    <Man>{x.manNum}</Man>
+                    <Desc>{x.description}</Desc>
+                    <Qty><strong>{x.qty}</strong>&nbsp;pcs.</Qty>
+                    <Price>{x.price} eur</Price>
                 </Nav>
 
-                <Button onClick={() => history.push(`/edit/${x._id}`)}>Edit</Button>
+                <Button onClick={() => history.push(`/Edit/${x._id}`)}>Edit</Button>
 
             </Div>
         )
@@ -46,6 +46,7 @@ const Button = styled.button`
         background-color: rgb(22,77,9);
         border: 2px solid rgb(22,77,9);
         color: white;
+        cursor: pointer;
     }
     display: block;
     box-sizing: border-box;
@@ -59,6 +60,10 @@ const Button = styled.button`
 
 `
 const ButtonHeader = styled.button`
+&:hover {
+        background-color: rgb(162,162,162);
+
+    }
     width: 100%;
     background-color: slategrey;
     color: white;

@@ -6,10 +6,12 @@ import db from '../../storage/database'
 import ListItems from '../../mainComponents/listItems/navigation'
 
 
-function Configurator(props) {
+function Configurator() {
 
-    const brands = db.getManufacturerConfigList()
- 
+    const brands = db
+        .getManufacturerConfigList()
+        .map(x => x.name)
+    
     return (
         <Div>
             <div>CHOOSE UP YOUR BRAND</div>

@@ -1,23 +1,11 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
 import ListItems from '../listItems/navigation'
 import styled from 'styled-components';
 
 const headerList = (loggedIn) => {
-    const guest = [ 'Edit', 'Stock', 'Configurator', 'Register', 'Login',
-        // { name: 'Stock', url: '/stock' },
-        // { name: 'Configurator', url: '/configurator' },
-        // { name: 'Register', url: '/register'},
-        // { name: 'Login', url: '/login'},
-      ]
+    const guest = [ 'Edit', 'Stock', 'Configurator', 'Register', 'Login', ]
 
-      const user = [ 'Stock', 'Configurator', 'Add category', 'Edit material', 'Login',
-        // { name: 'Stock', url: '/stock' },
-        // { name: 'Configurator', url: '/configurator' },
-        // { name: 'Add category', url: '/addCategory'},
-        // { name: 'Edit material', url: '/editMaterial'},
-        // { name: 'Logout', url: '/logout'}
-    ]
+    const user = [ 'Stock', 'Configurator', 'Add category', 'Edit material', 'Login',]
 
     return loggedIn ? user : guest 
 }
@@ -26,9 +14,9 @@ function Header() {
 
         return (
             <HeaderDiv>
-                <Link to='/'>
-                    <Img src="ALSO-Holding-AG.png" /*width="80" height="80" style={{ color: "black", filter: "invert(100%) sepia(0%) saturate(0%) hue-rotate(360deg) brightness(102%) contrast(102%)" }} */alt=""></Img>
-                </Link>
+                <Button onClick={() => window.location.assign('/Stock')}>
+                    <Img src="/ALSO-Holding-AG.png" /*width="80" height="80" style={{ color: "black", filter: "invert(100%) sepia(0%) saturate(0%) hue-rotate(360deg) brightness(102%) contrast(102%)" }} */alt=""></Img>
+                </Button>
                 <Nav >
                     <ListItems nav={headerList()} />
                 </Nav>
@@ -42,6 +30,7 @@ export default Header
 const HeaderDiv = styled.div`
     display: flex;
     justify-content: space-between;
+    box-sizing: content-box;
     width: 98%;
     margin: auto;
     height: auto;
@@ -54,6 +43,14 @@ const Nav = styled.nav`
     align-items: center;
 `
 const Img = styled.img`
-    display: inline-block;
+    display: block;
     height: 100%;
+`
+
+const Button = styled.button`
+    &:hover {
+        cursor: pointer;
+    }
+    display: block;
+    border-style: none;
 `

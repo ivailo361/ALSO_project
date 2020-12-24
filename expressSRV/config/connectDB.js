@@ -15,13 +15,12 @@ const uri = `mongodb+srv://${config.db_user}:${config.db_pass}@cluster0-zpn4z.mo
 
 async function connectDB() {
     const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true })
-    await client.connect()
-    return client.db(config.db_name);
+    return client.connect()
 }
 
 async function connectSession() {
     const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true })
-    return await client.connect()
+    return client.connect()
 
 }
 

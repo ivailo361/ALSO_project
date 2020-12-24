@@ -7,6 +7,8 @@ router.get('/', edit.get);
 
 router.post('/', readFile, edit.post);
 
+router.put('/component', edit.put)
+
 // router.post('/register', user.post.register);
 // // router.post('/register', validate.registerInput('users'), user.post.register);
 

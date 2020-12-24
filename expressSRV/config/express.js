@@ -17,8 +17,9 @@ module.exports = (app) => {
     // {origin: "http://localhost:3000", allowedHeaders: ['Content-Type', 'Auth']}
     //   {origin: "http://localhost:3000"}
     // {allowedHeaders: ['Content-Type', 'Auth']}
-    app.use(express.urlencoded({ extended: true }))
-    // app.use(express.json())
+    
+    // app.use(express.urlencoded({ extended: true }))
+    app.use(express.json())
 
     // app.use(cookieParser())
 

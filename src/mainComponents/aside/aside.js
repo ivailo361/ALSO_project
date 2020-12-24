@@ -11,9 +11,9 @@ function Aside(props) {
     return (
         <AsideComp>
             {manufacturers.length !== 0 
-                ? (<Nav >
+                ? <Nav >
                     <ListItems nav={manufacturers} theme={props.theme} />
-                </Nav>)
+                </Nav>
                 : null
             } 
         </AsideComp>
