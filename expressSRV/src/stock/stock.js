@@ -9,13 +9,19 @@ const db = new MongoDB();
 
 module.exports = {
     get: async (req, res, next) => {
-        console.log('I am here')
-        let getData = await Promise.all([db.getData('servers'), db.getData('types')])
-        console.log(getData)
-        if (getData.length === 0) {
-            res.status(404).json('Sorry, we cannot find that!')
+        try {
+            console.log('I am here')
+            let getData = await Promise.all([db.getData('servers'), db.getData('types')])
+            console.log(getData)
+            if (getData.length === 0) {
+                res.status(404).json('Sorry, we cannot find that!')
+            }
+            res.status(200).json(getData)
         }
-        res.status(200).json(getData)
+        catch (e) {
+            res.status(400).json('No connection with DB')
+            next(e)
+        }
     },
     post: {
         register: async (req, res, next) => {
@@ -40,7 +46,7 @@ module.exports = {
         },
         login: async (req, res, next) => {
             try {
-                
+
                 console.log(req.body)
                 const { email, password } = req.body;
                 const user = await db.getDataAll('users', { email })

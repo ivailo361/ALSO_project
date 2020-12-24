@@ -1,16 +1,17 @@
 import React, { Fragment, useEffect, useState } from 'react'
-import { Route, Switch, useRouteMatch } from 'react-router-dom'
+import { Route, Switch, useRouteMatch, } from 'react-router-dom'
 import Aside from '../../mainComponents/aside/aside'
 import { Content } from '../../stylesComponents/content'
 import ManufacturerPage from '../../pages/manufacturerStock/manufacturerStock'
 import { getData } from '../../models/fetcher'
 import db from '../../storage/database'
-import ErrorMsg from '../../mainComponents/errorMsg/errorMsg'
+import { ErrorMsg } from '../../mainComponents/messenger/message'
+import useNotifications from '../../models/notification'
 
 
 function StockPage() {
     const [list, setList] = useState([])
-    const [error, setError] = useState(null)
+    const { error, errorMessage, closeMessage} = useNotifications()
 
     let { path } = useRouteMatch();
 
@@ -22,19 +23,15 @@ function StockPage() {
                 db.setManufacturerList(res[0])
                 db.setTypesComponents(res[1])
                 setList(db.getManufacturerList())
-            }).catch(e => setError(e.message))
+            }).catch(e => errorMessage(e.message))
         } else {
             setList(db.getManufacturerList())
         }
     }, [])
 
-    function closeMessage() {
-        setError(null)
-    }
-
     return (
         <Fragment>
-            {error ? <ErrorMsg message={error} closeMessage={() => closeMessage()}/> : null}
+            {error ? <ErrorMsg message={error} closeMessage={closeMessage}/> : null}
             <Aside list={list} />
             <Content>
                 <Switch>

@@ -11,17 +11,16 @@ function TypeList(props) {
 
     const listComp = comp.map((x, index) => {
         return (
-            <Div>
-                <Nav key={x._id}>
+            <Div key={x._id}>
+                <Nav>
                     <Sap>{x.sapNum}</Sap>
                     <Man>{x.manNum}</Man>
                     <Desc>{x.description}</Desc>
                     <Qty><strong>{x.qty}</strong>&nbsp;pcs.</Qty>
                     <Price>{x.price} eur</Price>
-
                 </Nav>
 
-                <Button onClick={() => history.push(`/edit/${x._id}`)}>Edit</Button>
+                <Button onClick={() => history.push(`/Edit/${x._id}`)}>Edit</Button>
 
             </Div>
         )
@@ -47,6 +46,7 @@ const Button = styled.button`
         background-color: rgb(22,77,9);
         border: 2px solid rgb(22,77,9);
         color: white;
+        cursor: pointer;
     }
     display: block;
     box-sizing: border-box;
@@ -60,6 +60,10 @@ const Button = styled.button`
 
 `
 const ButtonHeader = styled.button`
+&:hover {
+        background-color: rgb(162,162,162);
+
+    }
     width: 100%;
     background-color: slategrey;
     color: white;
@@ -69,7 +73,7 @@ const ButtonHeader = styled.button`
     
 `
 
-const Nav = styled.nav`
+const Nav = styled.div`
     /* justify-content: space-between; */
     /* border-bottom: 2px solid lightgrey;  */
     display: flex;
@@ -84,7 +88,7 @@ const Nav = styled.nav`
 
 `
 
-const Li = styled.li`
+const Li = styled.div`
     display: flex;
     box-sizing: border-box;
     flex-grow: 1; 

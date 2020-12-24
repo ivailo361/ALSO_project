@@ -1,3 +1,5 @@
+const env = process.env.NODE_ENV || 'development';
+const config = require('../config/config')[env];
 
 const ObjectId = require('mongodb').ObjectId;
 const { connectDB, connectSession } = require('../config/connectDB')
@@ -22,7 +24,9 @@ class MongoDB {
 
 
     async getData(collection, param = {}) {
-        const db = await connectDB();
+        const connect = await connectDB()
+        const db = connect.db(config.db_name);
+
         let selector = Object.entries(param)
             .reduce((acc, b) => {
                 let key = b[0];
@@ -34,6 +38,7 @@ class MongoDB {
             }, {})
         const cursor = db.collection(collection).find(selector).sort({ _id: 1 });
         const results = await cursor.toArray();
+        connect.close()
         if (results.length >= 1) {
             return results;
         } else {
@@ -42,7 +47,9 @@ class MongoDB {
     }
 
     async insertDbFile(collectionName, record) {
-        const db = await connectDB();
+        const connect = await connectDB()
+        const db = connect.db(config.db_name);
+
         const updateInfo = record.Sheet1
 
         // updateInfo.forEach(async (x) => {
@@ -52,32 +59,42 @@ class MongoDB {
         //     let result = await db.collection(collectionName).updateOne(query, { $set: update }, options)
         //     console.log(result.modifiedCount)
         // })
+        let obj = { modifiedCount: 0, upsertedCount: 0 }
 
         for await (let commit of updateCommits(updateInfo)) {
-
-            console.log(commit.modifiedCount)
+            let res = {}
+            for (const key in obj) {
+                res[key] = obj[key] + commit[key]
+            }
+            obj = res
         }
 
         async function* updateCommits(data) {
             for (let i = 0; i < data.length; i++) {
                 const query = { sapNum: data[i].sapNum };
                 const update = data[i];
-                const options = {upsert: true, w: "majority", j: true, wtimeout: 60 };
+                const options = { upsert: true, w: "majority", j: true, wtimeout: 60 };
 
                 let res = await db.collection(collectionName).updateOne(query, { $set: update }, options)
-          
-                // if (res.modifiedCount === 1) {
-                //     throw new Error('The data was not imported please try again later')
-                // }
-                
-                // await new Promise(resolve => setTimeout(resolve, 1000));
-                
-                yield res
-            } 
-        }
-        console.log('res')
-        return 'ok'
 
+                yield res
+            }
+        }
+        connect.close()
+        return obj
+
+    }
+
+    async updateComponentData(compId, data) {
+        const connect = await connectDB()
+        const db = connect.db(config.db_name);
+
+        const o_id = new ObjectId(compId);
+        const updatedData = { $set: data }
+
+        let result = await db.collection('components').updateOne({ _id: o_id }, updatedData)
+        connect.close()
+        return result
     }
 
     // async getUser(collectionName, param) {

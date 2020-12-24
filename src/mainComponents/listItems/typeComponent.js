@@ -3,26 +3,26 @@ import db from '../../storage/database'
 import TypeList from './typeList'
 import { getData } from '../../models/fetcher'
 import { Block } from '../../stylesComponents/block'
-import styled from 'styled-components'
+import { ErrorMsg } from '../../mainComponents/messenger/message'
+import useNotifications from '../../models/notification'
 
 function TypeComponent(props) {
-    const [error, setError] = useState(null)
     const [data, setData] = useState(db.getComponentsData())
+    const { error, errorMessage, closeMessage } = useNotifications()
 
     const { types } = props
     const { manufacturer } = props
-    console.log(db.getComponentsData())
+
 
     useEffect(() => {
         if (data.length === 0) {
             getData('/api/edit')
                 .then((res) => {
-                    console.log(res)
                     db.setComponentsData(res)
                     setData(res)
                 })
-                .catch(e => setError(e.message))
-        } 
+                .catch(e => errorMessage(e.message))
+        }
     }, [data.length])
 
 
@@ -47,13 +47,17 @@ function TypeComponent(props) {
 
 
         return (
-            <Block key={x._id}>
-                <TypeList type={x.type} comp={matchComp} />
-            </Block>
+                <Block key={x._id}>
+                    <TypeList type={x.type} comp={matchComp} />
+                </Block>
         )
     })
 
-    return list
+    return (
+        error !== null
+        ? <ErrorMsg message={error} closeMessage={closeMessage} />
+        : list
+    )
 }
 
 export default TypeComponent

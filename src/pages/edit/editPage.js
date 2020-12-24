@@ -1,49 +1,46 @@
-import React, { Fragment, useRef, useState } from 'react';
+import React, { Fragment, useEffect, useRef, useState } from 'react';
+import { useParams, Switch } from 'react-router-dom'
 import db from '../../storage/database'
 import Aside from '../../mainComponents/aside/aside'
 import { Content } from '../../stylesComponents/content'
-import ErrorMsg from '../../mainComponents/errorMsg/errorMsg'
-import { importData } from '../../models/fetcher'
+import { ErrorMsg, NotificationMsg } from '../../mainComponents/messenger/message'
+import useSubmitForm from '../../models/submitForm'
+import PartDetails from './partDetails'
+
 
 
 function EditPage() {
-    const links = db.getManufacturerList()
+    const [part, setPart] = useState(null)
     const fileInput = useRef(null)
-    const [response, setResponse] = useState(null)
-    const [error, setError] = useState(null)
+    const { id } = useParams();
+    const { notify, error, uploadExcel, closeMessage } = useSubmitForm(part);
 
-    const uploadExcel = (e) => {
-        e.preventDefault();
+    const links = db.getManufacturerList()
+    const data = db.getComponentsData()
 
-        const file = fileInput.current.files;
-        const formData = new FormData();
 
-        formData.append("avatar", file[0]);
-        formData.append("text", 'some text');
+    useEffect(() => {
+        let part = data.find(x => x._id === id)
+        setPart(part)
+    }, [data, id])
 
-        importData('/api/edit', formData)
-            .then(res => {
-                console.log('response')
-                setResponse(res)
-            })
-            .catch(e => setError(e.message))
-    }
-
-    function closeMessage() {
-        setError(null)
-    }
 
     return (
         <Fragment>
-            {error ? <ErrorMsg message={error} closeMessage={() => closeMessage()} /> : null}
+            {error ? <ErrorMsg message={error} closeMessage={closeMessage} /> : null}
+            {notify ? <NotificationMsg message={notify} closeMessage={closeMessage} /> : null}
+
             <Aside list={links} />
             <Content>
-                <h1>Add new Excel file with database!</h1>
-                <div>{JSON.stringify(response)}</div>
-                <form onSubmit={(e) => uploadExcel(e)}>
-                    <input type="file" name="files" multiple ref={fileInput} />
-                    <button theme="standard" type="submit" name="submit">Upload Files</button>
-                </form>
+                {!part
+                    ? <Fragment>
+                        <h1>Add new Excel file with database!</h1>
+                        <form onSubmit={(e) => uploadExcel(e, fileInput)}>
+                            <input type="file" name="files" multiple ref={fileInput} />
+                            <button theme="standard" type="submit" name="submit">Upload Files</button>
+                        </form>
+                    </Fragment>
+                    : <PartDetails part={part} />}
             </Content>
         </Fragment>
     )

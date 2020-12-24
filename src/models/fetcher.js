@@ -3,20 +3,21 @@
 const BASE_URL = "http://localhost:3333"
 
 const createHeader = (method, body) => {
-    const encodeFormData = (body) => {
-        return Object.keys(body)
-            .map(key => `${key}=${body[key]}`)
-            // .map(key => encodeURIComponent(key) + '=' + encodeURIComponent(data[key]))
-            .join('&');
-    }
+    // const encodeFormData = (body) => {
+    //     return Object.keys(body)
+    //         .map(key => `${key}=${body[key]}`)
+    //         // .map(key => encodeURIComponent(key) + '=' + encodeURIComponent(data[key]))
+    //         .join('&');
+    // }
     const { token } = JSON.parse(sessionStorage.getItem('user')) || ''
     const header = {
         method: method,
         headers: {
-            'Content-Type': 'application/x-www-form-urlencoded',
+            // 'Content-Type': 'application/x-www-form-urlencoded',
+            'Content-Type': 'application/json',
             'auth': `${token || ''}`
         },
-        body: encodeFormData(body)
+        body: JSON.stringify(body)
     }
 
     return header
@@ -46,7 +47,7 @@ function postData(endpoint, body) {
 
 }
 
-function putData(endpoint, body) {
+function putComponentData(endpoint, body) {
     const header = createHeader('PUT', body)
     return fetcher(BASE_URL + endpoint, header)
 }
@@ -68,4 +69,4 @@ const checkForErrors = async (res) => {
     return res;
 }
 
-export { getData, postData, putData, importData }
+export { getData, postData, putComponentData, importData }

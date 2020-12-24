@@ -1,18 +1,37 @@
-import React, { Fragment, useState } from 'react'
+import React, { Fragment, useEffect, useState } from 'react'
 import { Li, StyledLink } from '../../stylesComponents/li'
-import { useRouteMatch } from 'react-router-dom'
+import { useLocation, useRouteMatch } from 'react-router-dom'
 
 
 
 
 function ListItems(props) {
     const [value, setValue] = useState('')
+    const { pathname } = useLocation()
     const { url } = useRouteMatch()
     // let model = pathname.match(/[a-zA-Z\d]+$/) || ""
-
     const { nav, conf, theme } = props
+    const path = link(url)
 
-    const path = url === '/' ? "" : url
+    function link(url) {
+        let link = ''
+        switch (true) {
+            case /\/$/.test(url): 
+                link = ''; break;
+            case /\/Edit/.test(url):
+                link = '/Stock'; break;
+            default:
+                link = url; break;
+        }
+        return link
+    }
+
+    useEffect(() => {
+        if (pathname === url) {
+            setValue('')
+        }
+    }, [pathname, url])
+
 
     const links = nav.map((x, i) => {
         return (

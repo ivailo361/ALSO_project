@@ -3,11 +3,7 @@ import { useParams } from 'react-router-dom'
 import db from '../../storage/database'
 import TypeComponent from '../../mainComponents/listItems/typeComponent'
 import { Block } from '../../stylesComponents/block'
-import styled from 'styled-components'
 
-
-// import Aside from '../../mainComponents/aside/aside'
-// import { Content } from '../../stylesComponents/content'
 
 function ManufacturerStock(props) {
     const { manufacturer } = useParams()
