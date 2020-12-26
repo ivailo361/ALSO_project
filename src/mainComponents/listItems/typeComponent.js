@@ -23,7 +23,7 @@ function TypeComponent(props) {
                 })
                 .catch(e => errorMessage(e.message))
         }
-    }, [data.length])
+    }, [data.length, errorMessage])
 
 
     let dataDB = data.filter(x => {

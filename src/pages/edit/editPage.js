@@ -1,5 +1,5 @@
 import React, { Fragment, useEffect, useRef, useState } from 'react';
-import { useParams, Switch } from 'react-router-dom'
+import { useParams, } from 'react-router-dom'
 import db from '../../storage/database'
 import Aside from '../../mainComponents/aside/aside'
 import { Content } from '../../stylesComponents/content'
