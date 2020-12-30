@@ -2,7 +2,9 @@ const stock = require('./stock');
 const router = require('express').Router();
 // const validate= require('../../models/validator');
 
-router.get('/', stock.get);
+ivo = 'ivo'
+
+router.get('/', stock.getInitialData);
 
 // router.get('/:id', stock.get);
 
