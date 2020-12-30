@@ -6,7 +6,10 @@
 .pnp.js
 /zzzdocs
 /expressSRV/node_modules
-/.eslintcache
+
+# cache
+.eslintcache
+.cache
 
 # testing
 /coverage
