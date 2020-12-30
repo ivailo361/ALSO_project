@@ -3,26 +3,30 @@ const config = require('../../config/config')[env];
 const bcrypt = require('bcrypt');
 const { generateToken, decodeToken } = require('../../models/auth')
 
-
 const MongoDB = require("../../models/mongo");
 const db = new MongoDB();
 
-module.exports = {
+async function getInitialData(req, res, next) {
+    try {
+        console.log('I am here')
+        let getData = await Promise.all([db.getData('servers'), db.getData('types')])
+        let result = [ ...getData[0], ...getData[1]]
+        if (result.length === 0) {
+            res.status(404).json('Sorry, we cannot find that!')
+        }
+        res.status(200).json(getData)
+    }
+    catch (e) {
+        res.status(400).json('No connection with DB')
+        next(e)
+    }
+}
+
+let old  = {
     get: async (req, res, next) => {
-        try {
-            console.log('I am here')
-            let getData = await Promise.all([db.getData('servers'), db.getData('types')])
-            console.log(getData)
-            if (getData.length === 0) {
-                res.status(404).json('Sorry, we cannot find that!')
-            }
-            res.status(200).json(getData)
-        }
-        catch (e) {
-            res.status(400).json('No connection with DB')
-            next(e)
-        }
+
     },
+
     post: {
         register: async (req, res, next) => {
             try {
@@ -70,4 +74,8 @@ module.exports = {
             }
         },
     },
+}
+
+module.exports = {
+    getInitialData
 }
