@@ -1,13 +1,16 @@
-import React, { Fragment } from 'react'
+import React, { Fragment, useState } from 'react'
 import db from '../../storage/database'
-import useSubmitForm from '../../models/submitForm'
+import { putComponentData } from '../../models/fetcher'
+import useNotifications from '../../models/notification'
 import styled from 'styled-components'
 
 import { ErrorMsg, NotificationMsg } from '../../mainComponents/messenger/message'
 
 function PartDetails(props) {
     const { part } = props
-    const { inputs, notify, error, handleInputChange, handleSelectModels, handleSubmit, closeMessage } = useSubmitForm(part);
+    const [inputs, setInputs] = useState({ ...part });
+    const { error, notify, notifyMessage, errorMessage, closeMessage } = useNotifications()
+    
     const types = db.getTypesComponents()
     const models = db.getModels(part.manufacturer)
     const serverModels = models.slice(0, models.length - 1)
@@ -25,12 +28,41 @@ function PartDetails(props) {
         )
     })
 
+    const handleInputChange = (event) => {
+        event.persist();
+        setInputs(inputs => ({ ...inputs, [event.target.name]: event.target.value })); 
+    }
+
+    const handleSelectModels = (event) => {
+        const target = event.target
+        const name = target.name
+        const value = Array.from(target.selectedOptions, option => option.value);
+        setInputs(inputs => ({ ...inputs, [name]: value }));
+        // setInputs(inputs => ({ ...inputs, [name]: value }));
+    }
+
+    const handleSubmit = (event) => {
+        if (event) {
+            event.preventDefault();
+            putComponentData('/api/edit/component', inputs)
+                .then(res => {
+                    if (res >= 1) {
+                        db.updateComponent(inputs)
+                    }
+                    notifyMessage(`modified component: ${res}\n`)
+                })
+                .catch(e => {
+                    console.log(e)
+                    errorMessage(e.message)
+                })
+        }
+    }
 
     return (
         <Fragment>
             {error ? <ErrorMsg message={error} closeMessage={closeMessage} /> : null}
             {notify ? <NotificationMsg message={notify} link={part.manufacturer} closeMessage={closeMessage} /> : null}
-
+            <h1>Edit the chosen component</h1>
             <form onSubmit={handleSubmit}>
                 <p>-------------------------</p>
                 {part.type !== 'Server'

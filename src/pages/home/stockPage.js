@@ -27,7 +27,7 @@ function StockPage() {
         } else {
             setList(db.getManufacturerList())
         }
-    }, [errorMessage])
+    }, [])
 
     return (
         <Fragment>

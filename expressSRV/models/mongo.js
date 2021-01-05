@@ -77,6 +77,34 @@ class MongoDB {
         return result
     }
 
+    async updateTypes(newType) {
+        const { connect, db } = await connectDB()
+        let result = await db.collection('types').findOne({ type: newType })
+        if (result === null) {
+            let res = await db.collection('types').insertOne({ type: newType })
+            connect.close()
+            return res
+        } else {
+            connect.close()
+            throw new Error('The chosen type has already existed')
+        }
+    }
+
+    async deleteType(id) {
+        const { connect, db } = await connectDB()
+        const o_id = new ObjectId(id);
+        let result = await db.collection('types').deleteOne({ _id: o_id })
+        connect.close()
+        if (result.deletedCount >= 1) {
+            return result
+        } else {
+            throw new Error('Unsuccessful DELETE operation')
+        }
+        
+//         const [delCourse, updateUser] = await Promise.all([
+//             db.collection('courses').deleteOne({ "_id": o_id }),
+    }
+
     // async getUser(collectionName, param) {
     //     const db = await connectDB();
     //     return db.collection(collectionName).findOne(param)

@@ -60,6 +60,11 @@ function importData(endpoint, formData) {
     return fetcher(BASE_URL + endpoint, header)
 }
 
+function deleteData(endpoint, body) {
+    const header = createHeader('DELETE', body)
+    return fetcher(BASE_URL + endpoint, header)
+}
+
 const checkForErrors = async (res) => {
     if (!res.ok) {
         // let message = msg(res.status)
@@ -69,4 +74,4 @@ const checkForErrors = async (res) => {
     return res;
 }
 
-export { getData, postData, putComponentData, importData }
+export { getData, postData, putComponentData, importData, deleteData }

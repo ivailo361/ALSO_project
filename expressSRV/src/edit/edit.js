@@ -8,9 +8,8 @@ async function getComponents(req, res, next) {
         let result = await db.getData('components');
         res.status(200).json(result)
     }
-    catch (e) {
+    catch(e) {
         res.status(400).json('Unsuccessful loading of component\'s list please try again later ')
-        next(e)
     }
 }
 
@@ -47,15 +46,13 @@ async function uploadComponents(req, res, next) {
             //   });
 
             res.status(200).json(updateResult)
-        } catch (e) {
+        } catch(e) {
             res.status(404).json('Unsuccessful import please try again later')
-            next(e)
         }
 
     }
-    catch (e) {
+    catch(e) {
         res.status(500).json('Don\'t forget to attach a file!')
-        next(e)
     }
 }
 
@@ -67,7 +64,30 @@ async function updateSingleComponent(req, res, next) {
     }
     catch(e) {
         res.status(404).json('Something went wrong please try again later')
-        next(e)
+    }
+}
+
+async function updateTypes(req, res, next) {
+    try {
+        const { type } = req.body
+        let result = await db.updateTypes(type)
+        console.log(result)
+        res.status(200).json(result)
+    }
+    catch(e) {
+        res.status(404).json(e.message)
+    }
+}
+
+async function deleteType(req, res, next) {
+    try {
+        const { id } = req.body
+        let result = await db.deleteType(id)
+        console.log(result)
+        res.status(200).json({ deletedCount: result.deletedCount })
+    }
+    catch(e) {
+        res.status(404).json(e.message)
     }
 }
 
@@ -75,4 +95,6 @@ module.exports = {
     getComponents,
     uploadComponents,
     updateSingleComponent,
+    updateTypes,
+    deleteType,
 }

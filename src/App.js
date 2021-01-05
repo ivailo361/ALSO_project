@@ -1,4 +1,4 @@
-import './App.css';
+
 import { Route, Switch, Redirect } from 'react-router-dom'
 import styled from 'styled-components'
 import StockPage from './pages/home/stockPage'
@@ -14,7 +14,7 @@ function App() {
       <Header />
       <Container>
         <Switch>
-          <Route exact path="/" render={() => <Redirect to='/stock'/>} />
+          <Route exact path="/" render={() => <Redirect to='/Stock'/>} />
           <Route path="/stock" component={StockPage} />
           <Route path="/edit/:id" component={EditPage} />
           <Route path="/edit" component={EditPage} />
