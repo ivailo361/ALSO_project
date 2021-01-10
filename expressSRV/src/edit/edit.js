@@ -71,8 +71,9 @@ async function updateTypes(req, res, next) {
     try {
         const { type } = req.body
         let result = await db.updateTypes(type)
-        console.log(result)
-        res.status(200).json(result)
+        console.log(result.ops[0])
+        let response = {insertedCount: 1, type: type}
+        res.status(200).json(response)
     }
     catch(e) {
         res.status(404).json(e.message)
@@ -84,7 +85,32 @@ async function deleteType(req, res, next) {
         const { id } = req.body
         let result = await db.deleteType(id)
         console.log(result)
-        res.status(200).json({ deletedCount: result.deletedCount })
+        res.status(200).json(result)
+    }
+    catch(e) {
+        res.status(404).json(e.message)
+    }
+}
+
+async function updateModels(req, res, next) {
+    try {
+        const { manufacturer, model } = req.body
+        let result = await db.updateModels(manufacturer, model)
+        console.log(result)
+        let response = {insertedCount: 1, type: model}
+        res.status(200).json(response)
+    }
+    catch(e) {
+        res.status(404).json(e.message)
+    }
+}
+
+async function deleteModel(req, res, next) {
+    try {
+        const { manufacturer, name } = req.body
+        let result = await db.deleteModel(manufacturer, name)
+        console.log(result)
+        res.status(200).json(result)
     }
     catch(e) {
         res.status(404).json(e.message)
@@ -97,4 +123,6 @@ module.exports = {
     updateSingleComponent,
     updateTypes,
     deleteType,
+    updateModels,
+    deleteModel,
 }

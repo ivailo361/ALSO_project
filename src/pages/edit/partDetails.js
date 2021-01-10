@@ -1,6 +1,7 @@
 import React, { Fragment, useState } from 'react'
 import db from '../../storage/database'
 import { putComponentData } from '../../models/fetcher'
+import { Part, AddButton, Div, FormComponent, Label, Select } from '../../stylesComponents/inputs'
 import useNotifications from '../../models/notification'
 import styled from 'styled-components'
 
@@ -63,47 +64,34 @@ function PartDetails(props) {
             {error ? <ErrorMsg message={error} closeMessage={closeMessage} /> : null}
             {notify ? <NotificationMsg message={notify} link={part.manufacturer} closeMessage={closeMessage} /> : null}
             <h1>Edit the chosen component</h1>
-            <form onSubmit={handleSubmit}>
-                <p>-------------------------</p>
+            <p>-------------------------</p>
+            <Part>
+            <FormComponent onSubmit={handleSubmit}>
                 {part.type !== 'Server'
-                    ? <div>
-                        <label>Pick ut the compatible servers:  </label>
-                        <div>Multiple selections are possible  </div>
+                    ? <Div>
+                        <Label>Pick up the compatible servers  </Label>
+                        <Label>Multiple selections are possible  </Label>
                         <Select multiple={true} size={serverModels.length} name='compatibleSrv' value={inputs.compatibleSrv} onChange={handleSelectModels}>
                             {listModels}
                         </Select>
-                    </div>
+                    </Div>
                     : null
                 }
-                <div>
-                    <label>Pick your the correct type:  </label>
+                <Div>
+                    <Label>Pick your the correct type:  </Label>
                     <Select name='type' value={inputs.type || 'undefined'} onChange={handleInputChange}>
                         {selectTypes}
                     </Select>
-                </div>
-                <input type="submit" value="Submit" />
-            </form>
+                </Div>
+                <Div>
+                    <AddButton type="submit" value="Submit" />
+                </Div>
+            </FormComponent>
+            </Part>
         </Fragment>
     )
 }
 
 export default PartDetails
 
-            /*
-            <Switch>
-                <Route path={`${path}/:manufacturer`} render={({ match }) => {
-                    return (<Redirect to={`/stock/${match.params.manufacturer}`} />)
-                }} />
-            </Switch>
-            */
-
-const Select = styled.select`
-    width: auto;
-    display: block;
-    border: 1px solid #ccc;
-    /* box-sizing: border-box;
-    padding: 12px 20px 12px 12px;
-    border-radius: 0 4px 4px 4px; */
-    margin: 8px 0 2em;
-`
 
