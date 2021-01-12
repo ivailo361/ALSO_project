@@ -3,7 +3,7 @@ import db from '../../storage/database'
 import { putComponentData } from '../../models/fetcher'
 import { Part, AddButton, Div, FormComponent, Label, Select } from '../../stylesComponents/inputs'
 import useNotifications from '../../models/notification'
-import styled from 'styled-components'
+
 
 import { ErrorMsg, NotificationMsg } from '../../mainComponents/messenger/message'
 
@@ -11,7 +11,7 @@ function PartDetails(props) {
     const { part } = props
     const [inputs, setInputs] = useState({ ...part });
     const { error, notify, notifyMessage, errorMessage, closeMessage } = useNotifications()
-    
+
     const types = db.getTypesComponents()
     const models = db.getModels(part.manufacturer)
     const serverModels = models.slice(0, models.length - 1)
@@ -31,7 +31,7 @@ function PartDetails(props) {
 
     const handleInputChange = (event) => {
         event.persist();
-        setInputs(inputs => ({ ...inputs, [event.target.name]: event.target.value })); 
+        setInputs(inputs => ({ ...inputs, [event.target.name]: event.target.value }));
     }
 
     const handleSelectModels = (event) => {
@@ -66,27 +66,26 @@ function PartDetails(props) {
             <h1>Edit the chosen component</h1>
             <p>-------------------------</p>
             <Part>
-            <FormComponent onSubmit={handleSubmit}>
-                {part.type !== 'Server'
-                    ? <Div>
+                <FormComponent onSubmit={handleSubmit}>
+
+                    <Div>
                         <Label>Pick up the compatible servers  </Label>
                         <Label>Multiple selections are possible  </Label>
                         <Select multiple={true} size={serverModels.length} name='compatibleSrv' value={inputs.compatibleSrv} onChange={handleSelectModels}>
                             {listModels}
                         </Select>
                     </Div>
-                    : null
-                }
-                <Div>
-                    <Label>Pick your the correct type:  </Label>
-                    <Select name='type' value={inputs.type || 'undefined'} onChange={handleInputChange}>
-                        {selectTypes}
-                    </Select>
-                </Div>
-                <Div>
-                    <AddButton type="submit" value="Submit" />
-                </Div>
-            </FormComponent>
+
+                    <Div>
+                        <Label>Pick your the correct type:  </Label>
+                        <Select name='type' value={inputs.type || 'undefined'} onChange={handleInputChange}>
+                            {selectTypes}
+                        </Select>
+                    </Div>
+                    <Div>
+                        <AddButton type="submit" value="Submit" />
+                    </Div>
+                </FormComponent>
             </Part>
         </Fragment>
     )
