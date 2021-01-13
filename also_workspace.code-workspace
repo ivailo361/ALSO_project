@@ -2,6 +2,9 @@
 	"folders": [
 		{
 			"path": "."
+		},
+		{
+			"path": "../../heroku/node-js-getting-started"
 		}
 	]
 }
