@@ -90,19 +90,42 @@ class MongoDB {
         }
     }
 
-    async deleteType(id) {
+    async deleteType(type) {
         const { connect, db } = await connectDB()
-        const o_id = new ObjectId(id);
-        let result = await db.collection('types').deleteOne({ _id: o_id })
+        // const o_id = new ObjectId(id);
+        let result = await db.collection('types').deleteOne({ type: type })
         connect.close()
         if (result.deletedCount >= 1) {
-            return result
+            return {deletedCount: 1, deletedModel: type}
         } else {
             throw new Error('Unsuccessful DELETE operation')
         }
-        
-//         const [delCourse, updateUser] = await Promise.all([
-//             db.collection('courses').deleteOne({ "_id": o_id }),
+    }
+
+    async updateModels(id, newModel) {
+        const { connect, db } = await connectDB()
+        const o_id = new ObjectId(id);
+        let result = await db.collection('servers').findOne({ models: { $elemMatch: { $eq: newModel } } })
+        if (result === null) {
+            let res = await db.collection('servers').updateOne({ _id: o_id }, { $push: { models: newModel } })
+            connect.close()
+            return res
+        } else {
+            connect.close()
+            throw new Error('The model has already exist')
+        }
+    }
+
+    async deleteModel(id, model) {
+        const { connect, db } = await connectDB()
+        const o_id = new ObjectId(id);
+        let result = await db.collection('servers').updateOne({ _id: o_id }, { $pull: { models: model } })
+        connect.close()
+        if (result.modifiedCount >= 1) {
+            return {deletedCount: 1, deletedModel: model}
+        } else {
+            throw new Error('Unsuccessful DELETE operation')
+        }
     }
 
     // async getUser(collectionName, param) {

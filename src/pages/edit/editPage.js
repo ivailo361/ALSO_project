@@ -5,6 +5,7 @@ import db from '../../storage/database'
 import { importData } from '../../models/fetcher'
 import Aside from '../../mainComponents/aside/aside'
 import { Content } from '../../stylesComponents/content'
+import { Part, Form, LabelInput, InputFile, AddButton } from '../../stylesComponents/inputs'
 import { ErrorMsg, NotificationMsg } from '../../mainComponents/messenger/message'
 import useNotifications from '../../models/notification'
 // import useSubmitForm from '../../models/submitForm'
@@ -60,18 +61,23 @@ function EditPage() {
 
             <Aside list={links} />
             <Content>
-                {!part
-                    ? <Fragment>
-                        <div>
-                            <H1>Add new Excel file with database!</H1>
-                            <Form onSubmit={(e) => uploadExcel(e, fileInput)}>
-                                <input type="file" name="files" multiple ref={fileInput} />
-                                <Button theme="standard" type="submit" name="submit">Upload Files</Button>
-                            </Form>
-                        </div>
-                        <ModifyType />
-                    </Fragment>
-                    : <PartDetails part={part} />}
+                <Block>
+                    {!part
+                        ? <Fragment>
+                            <Part>
+                                <h1>Add new Excel file with database!</h1>
+                                <Form onSubmit={(e) => uploadExcel(e, fileInput)}>
+                                    <div>
+                                        <LabelInput for="files">Upload DB file</LabelInput>
+                                        <InputFile type="file" id="files" name="files" multiple ref={fileInput} />
+                                    </div>
+                                    <AddButton type="submit" value="Upload Files" />
+                                </Form>
+                            </Part>
+                            <ModifyType />
+                        </Fragment>
+                        : <PartDetails part={part} />}
+                </Block>
             </Content>
         </Fragment>
     )
@@ -80,14 +86,7 @@ function EditPage() {
 
 export default EditPage
 
-const Button = styled.button`
-    display: block;
-`
-const H1 = styled.h1`
-    text-align: center;
-`
-
-const Form = styled.form`
+const Block = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;

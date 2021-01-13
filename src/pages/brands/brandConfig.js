@@ -14,8 +14,8 @@ function Brands(props) {
             <Aside list={db.getModels(brand)} theme={brand} />
             <Content>
                 <Switch>
-                    <Route exact path={path} component={ServerModel} />
-                    <Route path={`${path}/:model`} component={ServerModel} />
+                    <Route exact path={path} render={() => <ServerModel brand={brand} />}  />
+                    <Route path={`${path}/:model`} render={() => <ServerModel brand={brand} />}  />
                 </Switch>
             </Content>
         </Fragment>
